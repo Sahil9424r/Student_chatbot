@@ -26,4 +26,20 @@ An AI-powered student assistant built with Google Gemini (Generative AI) and Str
 
 ---
 
+## 📸 Screenshots
+
+### 🏠 Home Page
+![Home](Chatbotpic/Screenshot (352).png)
+
+### 📝 Summarizer
+![Summarizer](screenshots/summary.png)
+
+### 💼 Career & Emotional Support
+![Career Support](screenshots/career.png)
+
+### 🎬 Entertainment Suggestions
+![Entertainment](screenshots/entertainment.png)
+
+### 🧠 MCQ Generator
+![MCQ Generator](screenshots/mcq.png)
 
