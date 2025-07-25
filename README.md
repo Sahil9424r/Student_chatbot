@@ -51,5 +51,19 @@ An AI-powered student assistant built with Google Gemini (Generative AI) and Str
 ### Screenshot 8
 ![Screenshot 8](Chatbotpic/Screenshot%20(359).png)
 
+## 💬 Chatbot Features – Screenshots
+
+### 📂 RAG-Based Document Uploader
+Upload your own study material (PDF, DOCX, or TXT) and ask contextual questions based on the content.
+
+![RAG Document Uploader](Chatbotpic/Screenshot%20(365).png)
+![RAG Document Uploader](Chatbotpic/Screenshot%20(367).png)
+---
+
+### 💖 Personal Support Assistant
+Provides emotional or academic support by answering personal or conceptual questions in a clear, empathetic manner.
+
+![Personal Support](Chatbotpic/Screenshot%20(360).png)
+![Personal Support](Chatbotpic/Screenshot%20(361).png)
 
 
