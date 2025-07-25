@@ -57,7 +57,7 @@ An AI-powered student assistant built with Google Gemini (Generative AI) and Str
 Upload your own study material (PDF, DOCX, or TXT) and ask contextual questions based on the content.
 
 ![RAG Document Uploader](Chatbotpic/Screenshot%20(365).png)
-![RAG Document Uploader](Chatbotpic/Screenshot%20(367).png)
+![RAG Document Uploader](Chatbotpic/Screenshot%20(368).png)
 ---
 
 ### 💖 Personal Support Assistant
