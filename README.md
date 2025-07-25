@@ -25,21 +25,31 @@ An AI-powered student assistant built with Google Gemini (Generative AI) and Str
 - PyPDF2, python-docx
 
 ---
+## 💬 Chatbot Output Screenshots
 
-## 📸 Screenshots
+### Screenshot 1
+![Screenshot 1](Chatbotpic/Screenshot%20(352).png)
 
-### 🏠 Home Page
-![Home](Chatbotpic/Screenshot (352).png)
+### Screenshot 2
+![Screenshot 2](Chatbotpic/Screenshot%20(353).png)
 
-### 📝 Summarizer
-![Summarizer](screenshots/summary.png)
+### Screenshot 3
+![Screenshot 3](Chatbotpic/Screenshot%20(354).png)
 
-### 💼 Career & Emotional Support
-![Career Support](screenshots/career.png)
+### Screenshot 4
+![Screenshot 4](Chatbotpic/Screenshot%20(355).png)
 
-### 🎬 Entertainment Suggestions
-![Entertainment](screenshots/entertainment.png)
+### Screenshot 5
+![Screenshot 5](Chatbotpic/Screenshot%20(356).png)
 
-### 🧠 MCQ Generator
-![MCQ Generator](screenshots/mcq.png)
+### Screenshot 6
+![Screenshot 6](Chatbotpic/Screenshot%20(357).png)
+
+### Screenshot 7
+![Screenshot 7](Chatbotpic/Screenshot%20(358).png)
+
+### Screenshot 8
+![Screenshot 8](Chatbotpic/Screenshot%20(359).png)
+
+
 
