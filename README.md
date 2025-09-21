@@ -65,5 +65,8 @@ Provides emotional or academic support by answering personal or conceptual quest
 
 ![Personal Support](Chatbotpic/Screenshot%20(360).png)
 ![Personal Support](Chatbotpic/Screenshot%20(361).png)
+🗂️ Chat History
 
-
+Keep track of your previous interactions with the chatbot. The chat history allows you to review past questions and answers, making learning more organized and efficient.
+![Screenshot 8](Chatbotpic/Screenshot%20(454).png)
+![Screenshot 8](Chatbotpic/Screenshot%20(455).png)
