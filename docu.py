@@ -1,18 +1,24 @@
 import streamlit as st
 from PyPDF2 import PdfReader
 from docx import Document
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 import google.generativeai as genai
-from langchain.vectorstores import FAISS
+# from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
 from langchain.chains import LLMChain
+# import google.generativeai as genai
+# genai.configure(api_key="AIzaSyCTtCyfkoyrpi2sMfqvJHOJfAeV0-PrpZE")
 
 # Load environment variables
+
 load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
@@ -38,9 +44,12 @@ def get_text_chunks(text):
     chunks = text_splitter.split_text(text)
     return chunks
 
+
 def get_vector_store(text_chunks):
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")  # Free
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
+    # embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
+    # vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
 
 def get_conversational_chain():
@@ -60,7 +69,8 @@ def get_conversational_chain():
     return chain
 
 def user_input(user_question):
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    # embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")  # Free
     new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
     docs = new_db.similarity_search(user_question)
     chain = get_conversational_chain()
@@ -159,7 +169,6 @@ def generate_mcq_and_notes(text):
     prompt = PromptTemplate(template=prompt_template, input_variables=["text"])
     chain = LLMChain(llm=model, prompt=prompt)
     return chain.run(text=text)
-
 def main():
     st.set_page_config("💡 Gemini AI Assistant", layout="wide")
     st.title("🌟 Gemini-Powered AI Assistant")
@@ -169,12 +178,26 @@ def main():
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 
+    # ---------------- Sidebar for Chat History ----------------
+    with st.sidebar:
+        st.header("📜 Chat History")
+        if st.session_state.chat_history:
+            for i, (role, msg) in enumerate(st.session_state.chat_history):
+                if role == "User":
+                    st.markdown(f"**🧑 You:** {msg}")
+                else:
+                    st.markdown(f"**🤖 Bot:** {msg}")
+                st.markdown("---")
+        else:
+            st.info("No chat history yet. Start by asking something!")
+
+    # ---------------- Tabs ----------------
     tab1, tab2, tab3, tab4, tab5= st.tabs([
         "📁 Ask from Documents", 
         "✍️ Summarizer", 
         "💼 Career & Personal", 
         "🎬 Entertainment",
-        " 🧑‍🎓 MCQ & Notes"
+        "🧑‍🎓 MCQ & Notes"
     ])
 
     # Tab 1: Ask from File
@@ -194,12 +217,21 @@ def main():
             else:
                 st.warning("⚠️ Upload at least one file.")
 
-        file_query = st.text_input("🔎 Ask something from the uploaded files")
+        file_query = st.text_input("🔎 Ask something from the uploaded files", key="file_query")
         if st.button("Ask"):
             if file_query.strip():
                 with st.spinner("Searching through documents..."):
-                    user_input(file_query)
+                    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+                    new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+                    docs = new_db.similarity_search(file_query)
+                    chain = get_conversational_chain()
+                    response = chain({"input_documents": docs, "question": file_query}, return_only_outputs=True)
+                    answer = response["output_text"]
+
+                    st.write("📌 **Reply:**", answer)
+                    # Save history
                     st.session_state.chat_history.append(("User", file_query))
+                    st.session_state.chat_history.append(("Bot", answer))
             else:
                 st.warning("⚠️ Please enter a question.")
 
@@ -265,7 +297,7 @@ def main():
             else:
                 st.warning("⚠️ Ask an entertainment-related question.")
         
-
+    # Tab 5: MCQ & Notes
     with tab5:
         st.subheader("🧾 Generate MCQs and Short Notes")
         mcq_input = st.text_area("📘 Enter a topic or paste some study material", height=200)
@@ -279,6 +311,18 @@ def main():
                     st.session_state.chat_history.append(("Bot", result))
             else:
                 st.warning("⚠️ Please enter some content.")
+
+
+
+
+
+
+
+
+
+
+
+
 
 # ------------------- Run App -------------------
 if __name__ == "__main__":
